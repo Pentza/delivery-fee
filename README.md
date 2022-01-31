@@ -92,8 +92,8 @@ poetry run coverage html
 Here's couple images showcasing usage with Postman.
 
 GET-request to localhost with example payload
-![postma-get](docs\postman-get.png)
+![postma-get](docs/postman-get.png)
 
 GET-request to localhost with example payload but missing delivery distance
-![postma-get](docs\postman-missing.png)
+![postma-get](docs/postman-missing.png)
 
