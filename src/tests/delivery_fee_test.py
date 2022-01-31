@@ -1,14 +1,13 @@
 import unittest
 from random import random
+from datetime import datetime
 from ..delivery_fee import (
     minimal_value,
-    distance_delivery_fee, 
-    item_amount_fee, maximum_fee, 
+    distance_delivery_fee,
+    item_amount_fee, maximum_fee,
     friday_rush_hour,
     delivery_fee
 )
-from datetime import datetime
-
 
 class TestSurcharge(unittest.TestCase):
     def setUp(self) -> None:
@@ -30,7 +29,7 @@ class TestSurcharge(unittest.TestCase):
         self.assertEqual(1, distance_delivery_fee(-20))
         self.assertEqual(1, distance_delivery_fee(0))
         self.assertEqual(1, distance_delivery_fee(499))
-    
+
     def test_delivery_fee_returns_2_with_500_or_over_and_less_or_equal_to_1000(self):
         self.assertEqual(1, distance_delivery_fee(500))
         self.assertEqual(1, distance_delivery_fee(501))
@@ -73,22 +72,22 @@ class TestSurcharge(unittest.TestCase):
         self.assertEqual(15.0, maximum_fee(27.9))
 
     def test_friday_rush_hour_with_non_friday(self):
-        dt = datetime(2022, 1, 1, 16, 0, 0) # Jan 1st 2022 = saturday
-        self.assertFalse(friday_rush_hour(dt.isoformat()))
+        date_time = datetime(2022, 1, 1, 16, 0, 0) # Jan 1st 2022 = saturday
+        self.assertFalse(friday_rush_hour(date_time.isoformat()))
 
     def test_friday_rush_hour_with_friday_but_wrong_time(self):
-        dt = datetime(2021, 12, 31, 19, 0, 1) # Dec 31st 2021 = friday
-        self.assertFalse(friday_rush_hour(dt.isoformat()))
-        dt.replace(hour=14, minute=59, second=59)
-        self.assertFalse(friday_rush_hour(dt.isoformat()))
+        date_time = datetime(2021, 12, 31, 19, 0, 1) # Dec 31st 2021 = friday
+        self.assertFalse(friday_rush_hour(date_time.isoformat()))
+        date_time.replace(hour=14, minute=59, second=59)
+        self.assertFalse(friday_rush_hour(date_time.isoformat()))
 
     def test_friday_rush_hour_with_friday_and_correct_time(self):
-        dt = datetime(2021, 12, 31, 15, 0, 0)
-        self.assertTrue(friday_rush_hour(dt.isoformat()))
-        dt.replace(hour=17, minute=31, second=11)
-        self.assertTrue(friday_rush_hour(dt.isoformat()))
-        dt.replace(hour=19, minute=0, second=0)
-        self.assertTrue(friday_rush_hour(dt.isoformat()))
+        date_time = datetime(2021, 12, 31, 15, 0, 0)
+        self.assertTrue(friday_rush_hour(date_time.isoformat()))
+        date_time.replace(hour=17, minute=31, second=11)
+        self.assertTrue(friday_rush_hour(date_time.isoformat()))
+        date_time.replace(hour=19, minute=0, second=0)
+        self.assertTrue(friday_rush_hour(date_time.isoformat()))
 
     def test_delivery_fee_returns_0_with_cart_value_over_100(self):
         cart_value_in_cents = 10000 # 100€
@@ -102,7 +101,7 @@ class TestSurcharge(unittest.TestCase):
         number_of_items = 4
         time = '2021-10-12T13:00:00Z'
         self.assertAlmostEqual(
-            7.10, 
+            7.10,
             delivery_fee(
                 cart_value=cart_value_in_cents,
                 distance=delivery_distance,
@@ -117,7 +116,7 @@ class TestSurcharge(unittest.TestCase):
         number_of_items = 4
         time = '2021-12-31T16:00:00Z'
         self.assertAlmostEqual(
-            7.10 * 1.1, 
+            7.10 * 1.1,
             delivery_fee(
                 cart_value=cart_value_in_cents,
                 distance=delivery_distance,
@@ -125,13 +124,3 @@ class TestSurcharge(unittest.TestCase):
                 date_time=time
                 )
             )
-
-
-
-
-
-
-    
-
-
-

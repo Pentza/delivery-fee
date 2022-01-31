@@ -8,7 +8,7 @@ def minimal_value(cart_value: int) -> float:
 
             Parameters:
                 cart_value (int): The value of the shopping cart in cents
-    
+
             Examples:
                 cart_value = 890 (8.90€), return 1.10€
     """
@@ -35,7 +35,7 @@ def distance_delivery_fee(distance: int) -> int:
                 1500 meters => 2€ base fee + 1€ for the additional 500 m => 3€
                 1501 meters => 2€ base fee + 1€ for the first 500 m + 1€ for the second 500 m => 4€
     """
-    
+
     # Minimum fee is 1€
     fee = 1
 
@@ -70,8 +70,7 @@ def item_amount_fee(item_amount: int) -> float:
     """
     if item_amount - 4 <= 0:
         return 0.0
-    else:
-        return 0.5 * (item_amount - 4)
+    return 0.5 * (item_amount - 4)
 
 def maximum_fee(amount: float) -> float:
     """
@@ -87,10 +86,9 @@ def maximum_fee(amount: float) -> float:
     """
     if amount < 0.0:
         return 0.0
-    elif amount > 15.0:
+    if amount > 15.0:
         return 15.0
-    else:
-        return amount
+    return amount
 
 def friday_rush_hour(date_time: str) -> bool:
     """
@@ -100,17 +98,17 @@ def friday_rush_hour(date_time: str) -> bool:
         Parameters:
             date_time (str): datetime string in ISO format
     """
-    dt = isoparse(date_time)
+    date_time = isoparse(date_time)
 
     # 0 == monday, 1 == tuesday ... 4 == friday
-    if dt.weekday() != 4:
+    if date_time.weekday() != 4:
         return False
 
     start = datetime(1, 1, 1, 15).time()
     end = datetime(1, 1, 1, 19).time()
-    
+
     # return true if time is between 3PM (15) and 7PM (19) else false
-    return start <= dt.time() <= end
+    return start <= date_time.time() <= end
 
 def delivery_fee(cart_value: int=0, distance: int=0, item_amount: int=0, date_time: str='') -> float:
     """
@@ -132,7 +130,6 @@ def delivery_fee(cart_value: int=0, distance: int=0, item_amount: int=0, date_ti
     if cart_value / 100 >= 100:
         return 0.0
 
-
     total_delivery_fee = (
         minimal_value(cart_value) +
         distance_delivery_fee(distance) +
@@ -143,13 +140,5 @@ def delivery_fee(cart_value: int=0, distance: int=0, item_amount: int=0, date_ti
         total_delivery_fee *= 1.1
 
     total_delivery_fee = maximum_fee(total_delivery_fee)
-    
+
     return total_delivery_fee
-
-    
-
-    
-
-    
-    
-
