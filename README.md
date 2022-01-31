@@ -35,7 +35,7 @@ poetry install
 ```
 If you don't want to install dev dependencies, like test-libraries, use 
 ```
-poetry install --without dev
+poetry install --no-dev
 ```
 
 **Note:** I found Poetry acting weird with virtualenvironments on Windows. Sometimes it couldn't create or read its cache directory, so I had to make new one with command below and try install again
