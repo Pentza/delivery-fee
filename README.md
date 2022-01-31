@@ -84,7 +84,8 @@ This creates html raport of the code coverage. It can be found from `.htmlcov/in
 poetry run coverage run --branch -m pytest
 
 poetry run coverage html
-```
+```  
+![codecoverage](docs/code-coverage.png)
 
 ---
 ### Usage
